@@ -1,5 +1,6 @@
 *.txt
 *.png
+*.tab
 .DS_Store
 
 
