@@ -31,8 +31,8 @@ if __name__ == '__main__':
     #percorsoCavalloTimeOut(1050,time(),10.0)
 
 
-    partenza = 1625
-    fine = 1630
+    partenza = 1000
+    fine = 1010
     timeOut = 15.0
 
     fail,goal = cercaNumeriCritici(fine,timeOut,partenza)
