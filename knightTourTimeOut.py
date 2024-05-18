@@ -14,14 +14,13 @@ def percorsoCavalloIterativoTimeOut(n,start,timeOut,criterioScelta):
     pos = 0
     isBackTrack = False
     while True:
-            temp = time()-start
-            if timeOut and temp>timeOut:
-                return n
+            if timeOut and time()-start>timeOut:
+                return (n,time()-start,[])
             path.append(pos)
             nelPath[pos]=1
             deltalen=len(graph)-len(path)
             if not deltalen:
-                return (n,temp)
+                return (n,time()-start,path)
 
             x,y = idxToCord(n,pos)
 
@@ -44,7 +43,7 @@ def percorsoCavalloIterativoTimeOut(n,start,timeOut,criterioScelta):
             if isBackTrack:
                 path.pop()
                 if path == [0]:
-                    return (n,temp)
+                    return (n,time()-start,None)
                 else:
                     update_cnt(n,x,y,move_cnt,nelPath,dec=False)
                     nelPath[pos]=0

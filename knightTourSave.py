@@ -1,10 +1,13 @@
+from time import time
+
 from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
 from criteriSceltaHamilton import eurDistCentro,eurMenoEntrantiDistCentro
 from boardToString import save_board
 
 def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelta,id=0):
+    start = time()
     if n<3:
-        return None
+        return (n,0,None)
     graph = creaGrafo(n)
     nelPath = [0]*(n*n)
     move_cnt = make_cnt(n)
@@ -22,7 +25,7 @@ def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelt
 
             deltalen=len(graph)-len(path)
             if not deltalen:
-                return path
+                return (n,time()-start,path)
 
             x,y = idxToCord(n,pos)
 

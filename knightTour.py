@@ -21,7 +21,7 @@ def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
             nelPath[pos]=1
             deltalen=len(graph)-len(path)
             if not deltalen:
-                return path
+                return (n,time()-start,path)
 
             x,y = idxToCord(n,pos)
 
@@ -46,14 +46,12 @@ def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
             if isBackTrack:
                 path.pop()
                 if path == [0]:
-                    return None
+                    return (n,time()-start,None)
                 else:
                     update_cnt(n,x,y,move_cnt,nelPath,dec=False)
                     nelPath[pos]=0
                     pos = path.pop()
                 
-
-#TODO quando metto una casella a 1 nel vettore caratteristico nelPath mi devo assicurare che tutti gli zero che puntano all'uno appena messo abbiamo almeno un altro zero su cui andare 
 if __name__ == '__main__':
     print(percorsoCavalloIterativo(27,None,None,eurMenoEntrantiDistCentro))
 

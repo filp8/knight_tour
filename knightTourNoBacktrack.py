@@ -11,24 +11,23 @@ def percorsoCavalloNoBack(n,start,timeOut,criterioScelta):
     path = []
     pos = 0
     while True:
-        temp = time()-start
-        if timeOut and temp>timeOut:
-            return n
+        if timeOut and time()-start>timeOut:
+            return (n,time()-start,[])
         path.append(pos)
         nelPath[pos]=1
         deltalen=len(graph)-len(path)
         if not deltalen:
-            return (n,temp)
+            return (n,time()-start,path)
 
         x,y = idxToCord(n,pos)
 
         if update_cnt(n,x,y,move_cnt,nelPath,dec=True) and deltalen != 1:
-            return None
+            return (n,time()-start,[])
         neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
         neighbor_list.sort(key = lambda neig: criterioScelta(n,neig,move_cnt))
             
         if neighbor_list==[]:
-            return None
+            return (n,time()-start,[])
         else:
             pos = neighbor_list[0]
                 
