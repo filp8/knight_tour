@@ -12,24 +12,29 @@ def print_board(vett,n):
     print(sOut)
     return 
 
-def save_board(vett,n,nomeFile,id,asTab=False,simboli=('0','1')):
+def save_board(vett,n,pos,nomeFile,id,asTab=False,simboli=('0','1','\u265E')):
     sOut = f'\n{id}\n\n'
     cnt = 0
     sep = '\t' if asTab else ''
-    vuoto,pieno = simboli 
+    vuoto,pieno,cavallo = simboli 
     for cas in vett:
-        sOut += (pieno if cas else vuoto)+sep
+        if cnt == pos:
+            sOut+=cavallo
+        else:
+            sOut += (pieno if cas else vuoto)+sep
         cnt+=1
-        if cnt == n:
+        if cnt%n == 0:
             sOut+='\n'
-            cnt = 0
+            
     with open(nomeFile, 'a') as f:
         f.write(sOut+'\n')
     return 
 
 if __name__ == '__main__':
-    vett = [0,1,0,1,0]*5
-    save_board(vett,5,'prova_tab.tab',0,asTab=True,simboli = ['⬜','⬛'])
+    vett = [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','⬛','⬛'])
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','🟪','🟦'])
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','⬛️','🟥'])
     
 '''
 https://symbl.cc/it/unicode-table/#miscellaneous-symbols
