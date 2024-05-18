@@ -1,9 +1,12 @@
-*.txt
 *.png
 *.tab
 .DS_Store
-./percorsi/*.txt
-
+!percorsi/
+!img/
+!txt/
+percorsi/*
+img/*
+txt/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
