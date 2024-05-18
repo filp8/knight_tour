@@ -1,17 +1,16 @@
 import sys
 sys.setrecursionlimit(1_100_000)
-from time import time
 from math import sqrt
 from boardUtil import cordToIdx,idxToCord,creaGrafo
 
-def make_cnt(n):
+def make_cnt(n:int)->list[int]:
     cnt = [0]*(n*n)
     for y in range(n):
         for x in range(n):
             update_cnt(n,x,y,cnt,None,False)
     return cnt
 
-def update_cnt(n,x,y,cnt,nelPath,dec):
+def update_cnt(n:int, x:int, y:int, cnt:list[int],nelPath:list[int],dec:bool)->bool:
     rev = False
     mosse_cavallo = [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)] # (x,y)
     for mossa in mosse_cavallo:
@@ -27,12 +26,12 @@ def update_cnt(n,x,y,cnt,nelPath,dec):
                         cnt[t_idx]+=1
     return rev
 
-def dist_centro(n,pos):
+def dist_centro(n:int, pos:int)->float:
     x,y = idxToCord(n,pos)
     centro = n/2
     return sqrt((x-centro)**2+(y-centro)**2)
 
-def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt):
+def hamiltonian_path(n:int, graph, pos:int, path:list[int], nelPath:list[int], move_cnt:list[int])->list[int]:
     path.append(pos)
     nelPath[pos]=1
     deltalen=len(graph)-len(path)
@@ -55,11 +54,11 @@ def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt):
     update_cnt(n,x,y,move_cnt,nelPath,dec=False)
     return None
 
-def percorsoCavallo(n):
+def percorsoCavallo(n:int)->list[int]:
     graf = creaGrafo(n)
-    used = [0]*(n*n)
-    move_cnt = make_cnt(n)
-    sol = hamiltonian_path(n,graf,0,[],used,move_cnt)
+    used:list[int] = [0]*(n*n)
+    move_cnt:list[int] = make_cnt(n)
+    sol:list[int] = hamiltonian_path(n,graf,0,[],used,move_cnt)
     return sol
 
 

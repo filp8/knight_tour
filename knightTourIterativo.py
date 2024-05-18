@@ -2,16 +2,17 @@ import sys
 sys.setrecursionlimit(1_100_000)
 from time import time
 from math import sqrt
+from typing import Callable
 from boardUtil import cordToIdx,idxToCord,creaGrafo
 
-def make_cnt(n):
-    cnt = [0]*(n*n)
+def make_cnt(n:int)->list[int]:
+    cnt:list[int] = [0]*(n*n)
     for y in range(n):
         for x in range(n):
             update_cnt(n,x,y,cnt,None,False)
     return cnt
 
-def update_cnt(n,x,y,cnt,nelPath,dec):
+def update_cnt(n:int, x:int, y:int, cnt:list[int],nelPath:list[int],dec:bool)->bool:
     rev = False
     mosse_cavallo = [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)] # (x,y)
     for mossa in mosse_cavallo:
@@ -27,14 +28,18 @@ def update_cnt(n,x,y,cnt,nelPath,dec):
                         cnt[t_idx]+=1
     return rev
 
-def dist_centro(n,pos):
+def dist_centro(n:int, pos:int)->float:
     x,y = idxToCord(n,pos)
     centro = n/2
     return sqrt((x-centro)**2+(y-centro)**2)
 
+def dist_centro_Manhattan(n:int, pos:int)->float:
+    x,y = idxToCord(n,pos)
+    centro = n/2
+    return abs(x-centro)+abs(y-centro)
 
 
-def percorsoCavalloIterativoTimeOut(n,start,timeOut):
+def percorsoCavalloIterativoTimeOut(n:int, start:float, timeOut:float, dist:Callable[[int, int], float])->list[int]:
     graph = creaGrafo(n)
     nelPath = [0]*(n*n)
     move_cnt = make_cnt(n)
@@ -71,12 +76,14 @@ def percorsoCavalloIterativoTimeOut(n,start,timeOut):
                 update_cnt(n,x,y,move_cnt,nelPath,dec=False)
                 bad_move[last].append(pos)
                 pos = last
-    return path
 
 
 #TODO quando metto una casella a 1 nel vettore caratteristico nelPath mi devo assicurare che tutti gli zero che puntano all'uno appena messo abbiamo almeno un altro zero su cui andare 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativoTimeOut(660,time(),100.0))
+    n:int=600
+    start:float=time()
+    timeOut:float=100.0
+    print(percorsoCavalloIterativoTimeOut(n, start, timeOut))
     #percorsoCavalloTimeOut(35,time(),1.0)
 
 
