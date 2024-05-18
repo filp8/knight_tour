@@ -2,11 +2,17 @@
 *.tab
 .DS_Store
 !percorsi/
-!img/
-!txt/
+!percorsi/.gitkeep
 percorsi/*
+
+!img/
 img/*
+!img/.gitkeep
+
+!txt/
 txt/*
+!txt/.gitkeep
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

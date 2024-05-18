@@ -1,23 +1,21 @@
-import sys
-sys.setrecursionlimit(1_100_000_000)
-
 from time import time 
-from knightTourTimeOut import percorsoCavalloTimeOut
-from knightTourIterativo import percorsoCavalloIterativoTimeOut
+
+from knightTour import percorsoCavalloIterativo
+from knightTourNoBacktrack import percorsoCavalloNoBack
+from knightTourRicorsivo import percorsoCavalloRicorsivo
+
+from criteriSceltaHamilton import eurDistCentro,eurMenoEntrantiDistCentro,eurMenoEntranti
 
 
-
-def cercaNumeriCritici(fine,timeOut,inizio=5):
+def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta):
     numeri = []
     goal = []
     if inizio<5:
         inizio = 5
-    for n in range(inizio,fine):
+    for n in range(inizio,fine,step):
         start = time()
-        #ret = percorsoCavalloTimeOut(n,start,timeOut)
-        ret = percorsoCavalloIterativoTimeOut(n,start,timeOut)
+        ret = algoritmo(n,start,timeOut,criterioScelta)
         print(ret)
-
         if type(ret)==int:
             numeri.append(ret)
         else:
@@ -27,16 +25,15 @@ def cercaNumeriCritici(fine,timeOut,inizio=5):
 
 if __name__ == '__main__':
 
-    #print(percorsoCavalloIterativoTimeOut(1050,time(),10.0))
-    #percorsoCavalloTimeOut(1050,time(),10.0)
+    inizio = 0
+    fine = 400
+    step = 1
+    timeOut = 1000.0
 
+    fail,goal = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloIterativo,eurMenoEntrantiDistCentro)
 
-    partenza = 1000
-    fine = 1010
-    timeOut = 15.0
-
-    fail,goal = cercaNumeriCritici(fine,timeOut,partenza)
-    print(goal)
-    print(fail)
+    print(f'\n\n inizio:{inizio}     fine:{fine}     step:{step}     timeOut:{timeOut}')
+    print(f'\n goal:{len(goal)}')
+    print(f'\n fail:{len(fail)}')
 
    

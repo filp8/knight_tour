@@ -32,9 +32,9 @@ def save_board(vett,n,pos,nomeFile,id,asTab=False,simboli=('0','1','\u265E')):
 
 if __name__ == '__main__':
     vett = [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
-    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','⬛','⬛'])
-    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','🟪','🟦'])
-    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','⬛️','🟥'])
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ('⬜','⬛','⬛'))
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ('⬜','🟪','🟦'))
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ('⬜','⬛️','🟥'))
     
 '''
 https://symbl.cc/it/unicode-table/#miscellaneous-symbols
