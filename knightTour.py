@@ -19,6 +19,8 @@ def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
     cnt_back = 0
     while True:
             print(f'n={n} iterazioni={cnt_it} backtrack={cnt_back}')
+            if timeOut and time()-start>timeOut:
+                return (n,time()-start,[])
             cnt_it+=1
             path.append(pos)
             nelPath[pos]=1

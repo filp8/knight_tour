@@ -42,6 +42,13 @@ def find_max(filename:str, max_index:int, algorithmName:str, algo_index:int, eur
                     max = conf
     return max
 
+def cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName):
+    for algoritmo in algoritmi:
+        for euristica in euristiche:
+            if not (algoritmo.__name__=='percorsoCavalloNoBackNoCount' and euristica.__name__[:15] == 'eurMenoEntranti'):
+                cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,euristica,outDataFileName)
+    return
+
 def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outDataFileName, writeThreshold=10):
     minDelta=100
     
@@ -50,8 +57,8 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
     nonRisolvibili = []
     record = []
 
-    algoritmName = str(algoritmo).split(' ')[1]
-    euristicName = str(criterioScelta).split(' ')[1]
+    algoritmName = algoritmo.__name__
+    euristicName = criterioScelta.__name__
     
     if inizio<1:
         inizio = 1
@@ -103,20 +110,34 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 
 
 if __name__ == '__main__':
+
     inizio = 0
-    fine = 10000
+    fine = 20
     step = 1
-    timeOut = 100.0
-    outDataFileName = './data/data1.csv'
+    timeOut = 1.0
+    outDataFileName = './data/data3.csv'
+    algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
+    euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
 
-    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloNoBack,eurMenoEntrantiDistCentroManhattan,outDataFileName)
+    cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
 
-    print(gooal)
-    print()
-    print(fail)
-    print(f'\n\n inizio:{inizio}     fine:{fine}     step:{step}     timeOut:{timeOut}')
-    print(f'\n goal:{len(gooal)}')
-    print(f'\n fail:{len(fail)}')
-    print(f'\n nonRisolvibili:{len(nonRisolvibili)}')
+
+
+
+    #   NUMERI CRITICI SINGOLO ALGORITMO
+    # inizio = 0
+    # fine = 10000
+    # step = 1
+    # timeOut = 100.0
+    # outDataFileName = './data/data1.csv'
+    # fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloNoBack,eurMenoEntrantiDistCentroManhattan,outDataFileName)
+
+    # print(gooal)
+    # print()
+    # print(fail)
+    # print(f'\n\n inizio:{inizio}     fine:{fine}     step:{step}     timeOut:{timeOut}')
+    # print(f'\n goal:{len(gooal)}')
+    # print(f'\n fail:{len(fail)}')
+    # print(f'\n nonRisolvibili:{len(nonRisolvibili)}')
 
     # print(find_max('./data/data1.csv',0))
