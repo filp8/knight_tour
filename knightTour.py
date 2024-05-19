@@ -5,7 +5,7 @@ from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentr
 eurDistManhattan,eurMenoEntrantiDistCentroManhattan
 
 
-def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
+def percorsoCavalloIterativo(n,start,timeOut,criterioScelta): #TODO fixare!
     if n<3:
         return None
     graph = creaGrafo(n)
@@ -56,6 +56,6 @@ def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
                     pos = path.pop()
                 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativo(27,None,None,eurMenoEntrantiDistCentroEuclidea))
+    print(percorsoCavalloIterativo(16,None,None,eurDistManhattan))
 
 

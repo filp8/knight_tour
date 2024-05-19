@@ -17,21 +17,21 @@ def dist_centro_euclidea(n,pos,move_cnt):
     return sqrt((x-centro)**2+(y-centro)**2)
 
 def eurMenoEntrantiDistCentroEuclidea(n,pos,move_cnt):
-    return (move_cnt[pos]*n)-dist_centro_euclidea(n,pos)
+    return (move_cnt[pos]*n)-dist_centro_euclidea(n,pos,move_cnt)
 
 def eurMenoEntranti(n,pos,move_cnt):
     return move_cnt[pos]*n
 
 def eurDistCentroEuclidea(n,pos,move_cnt):
-    return -dist_centro_euclidea(n,pos)
+    return -dist_centro_euclidea(n,pos,move_cnt)
 
 def eurDistManhattan(n,pos,move_cnt):
-    return -dist_centro_manhattan(n,pos)
+    return -dist_centro_manhattan(n,pos,move_cnt)
 
 def eurMenoEntrantiDistCentroManhattan(n,pos,move_cnt):
-    return (move_cnt[pos]*n)-dist_centro_manhattan(n,pos)
+    return (move_cnt[pos]*n)-dist_centro_manhattan(n,pos,move_cnt)
 
-def dist_centro_manhattan(n,pos):
+def dist_centro_manhattan(n,pos,move_cnt):
     x,y = idxToCord(n,pos)
     centro = ((n+1)//2)-1
     xdist = abs(centro-x)

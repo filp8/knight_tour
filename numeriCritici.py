@@ -63,7 +63,6 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
         temp = format(tempo,'.4f')
 
         record.append([numero,algoritmName,euristicName,temp,ris])
-        print((numero,tempo))
 
         if esito==None:
             nonRisolvibili.append(numero)
@@ -73,7 +72,7 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 
         else:
             gooal.append(numero)
-            print(f'n={n} found in {ret[1]:.3f}sec')
+            print(f'n={n} found in {tempo:.3f}sec')
             if not isValidSolution(n, esito):
                 print(f'n={n} INVALID SOLUTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
             
@@ -96,10 +95,10 @@ if __name__ == '__main__':
     inizio = 0
     fine = 1000
     step = 1
-    timeOut = 1000.0
+    timeOut = 6.0
     outDataFileName = './data/data1.csv'
 
-    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloNoBack,eurDistManhattan,outDataFileName)
+    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloIterativo,eurDistManhattan,outDataFileName)
 
     print(gooal)
     print()

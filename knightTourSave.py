@@ -1,7 +1,10 @@
 from time import time
 
 from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
-from criteriSceltaHamilton import eurDistCentro,eurMenoEntrantiDistCentro
+
+from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
+eurDistManhattan,eurMenoEntrantiDistCentroManhattan
+
 from boardToString import save_board
 
 def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelta,id=0):
@@ -58,6 +61,6 @@ def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelt
 
 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativoSave(2000,10000,'./txt/provaiterativa.txt',False,('⬜','⬛️','🟥'),eurMenoEntrantiDistCentro))
+    print(percorsoCavalloIterativoSave(16,1000,'./txt/provaiterativa.txt',False,('⬜','⬛️','🟥'),eurDistManhattan))
 
 
