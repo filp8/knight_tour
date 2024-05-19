@@ -56,6 +56,6 @@ def percorsoCavalloIterativoTimeOut(n,start,timeOut,criterioScelta):
 
 #TODO quando metto una casella a 1 nel vettore caratteristico nelPath mi devo assicurare che tutti gli zero che puntano all'uno appena messo abbiamo almeno un altro zero su cui andare 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativoTimeOut(4000,time(),None,eurMenoEntrantiDistCentro))
+    print(percorsoCavalloIterativoTimeOut(4000,time(),None,eurMenoEntranti))
 
 
