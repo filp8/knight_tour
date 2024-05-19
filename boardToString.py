@@ -1,10 +1,12 @@
 
 
 def print_board(vett,n):
+    maxl = len(str(max(vett,key = lambda n: len(str(n)))))
+    
     sOut = ''
     cnt = 0
     for cas in vett:
-        sOut+=str(cas)
+        sOut += f' {str(cas):^{maxl}s}'
         cnt+=1
         if cnt == n:
             sOut+='\n'
@@ -32,9 +34,9 @@ def save_board(vett,n,pos,nomeFile,id,asTab=False,simboli=('0','1','\u265E')):
 
 if __name__ == '__main__':
     vett = [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0]
-    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','⬛','⬛'])
-    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','🟪','🟦'])
-    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ['⬜','⬛️','🟥'])
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ('⬜','⬛','⬛'))
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ('⬜','🟪','🟦'))
+    save_board(vett,5,0,'./txt/prova.txt',0,asTab=False,simboli = ('⬜','⬛️','🟥'))
     
 '''
 https://symbl.cc/it/unicode-table/#miscellaneous-symbols

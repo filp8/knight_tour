@@ -1,55 +1,66 @@
-import sys
-sys.setrecursionlimit(1_100_000)
+from time import time
 
-from boardUtil import idxToCord,creaGrafo
+from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
 from boardToString import save_board
-from knightTourTimeOut import update_cnt,dist_centro,make_cnt
 
-def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,nomeFile,asTab,simboli,id=0):
-    path.append(pos)
-    nelPath[pos]=1
-    step = 1000 # salva una board ogni step mosse
-    if id%step==0:
-        save_board(nelPath,n,pos,nomeFile,id,asTab,simboli = simboli)
-        print(id)
-    #make_img_from_board(nelPath,n,1000,nomeFile+str(id))
-    id+=1
+from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
+                                  eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
+
+def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelta,id=0):
+    if n<3:
+        return (n,0,None)
     
-    deltalen=len(graph)-len(path)
-    if not deltalen:
-        return path
-    
-    x,y = idxToCord(n,pos)
-
-    if not update_cnt(n,x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
-        neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
-        neighbor_list.sort(key = lambda neig: (move_cnt[neig]*n)-dist_centro(n,neig))
-        for neighbor in neighbor_list:
-            extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt,nomeFile,asTab,simboli,id)
-            if extended_path: 
-                return extended_path
-    path.pop()
-    nelPath[pos]=0
-    update_cnt(n,x,y,move_cnt,nelPath,dec=False)
-    return None
-
-def percorsoCavallo(n,asTab=False,simboli=['0','1','2']):
-    graf = creaGrafo(n)
-    used = [0]*(n*n)
+    start = time()
+    graph = creaGrafo(n)
+    nelPath = [0]*(n*n)
     move_cnt = make_cnt(n)
-    nomeRicerca = './txt/('+str(n)+'*'+str(n)+')ricerca.'
-    nomeRicerca += 'tab' if asTab else 'txt'
-    with open(nomeRicerca, 'w') as f:
-        f.write('\n')
-    sol = hamiltonian_path(n,graf,0,[],used,move_cnt,nomeRicerca,asTab=asTab,simboli=simboli,id=0)
-    save_board(used,n,None,nomeRicerca,None,asTab,simboli = simboli)
-    return sol
+    path = []
+    stackNL = []
+    pos = 0
+    isBackTrack = False
+    while True:
+            path.append(pos)
+            nelPath[pos]=1
+            if id%stepSave==0:
+                save_board(nelPath,n,pos,nomeFile,id,asTab,simboli)
+                print(id)
+            id+=1
 
-#TODO quando metto una casella a 1 nel vettore caratteristico nelPath mi devo assicurare che tutti gli zero che puntano all'uno appena messo abbiamo almeno un altro zero su cui andare 
+            deltalen=len(graph)-len(path)
+            if not deltalen:
+                return (n,time()-start,path)
+
+            x,y = idxToCord(n,pos)
+
+            if not update_cnt(n,x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
+                if isBackTrack:
+                    neighbor_list = stackNL.pop()
+                    isBackTrack = False
+                else:
+                    neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
+                    neighbor_list.sort(key = lambda neig: criterioScelta(n,neig,move_cnt))
+                
+                if neighbor_list==[]:
+                    isBackTrack = True
+                else:
+                    pos = neighbor_list[0]
+                    stackNL.append(neighbor_list[1:])
+            else:
+                isBackTrack = True
+
+            if isBackTrack:
+                path.pop()
+                if path == [0]:
+                    return None
+                else:
+                    update_cnt(n,x,y,move_cnt,nelPath,dec=False)
+                    nelPath[pos]=0
+                    pos = path.pop()
+                
+
+
+
 if __name__ == '__main__':
-    #percorsoCavallo(378,asTab=False,simboli = ['⬜','⬛️','🟥'])
-    percorsoCavallo(378,asTab=False,simboli = ['0','1','2'])
-
-    #percorsoCavallo(35,asTab=False)
+    print(percorsoCavalloIterativoSave(2000,10000,'./txt/provaiterativa.txt',False,('⬜','⬛️','🟥'),eurMenoEntrantiDistCentro))
 
 
