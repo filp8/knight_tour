@@ -1,6 +1,6 @@
 from time import time
 
-from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
+from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt,cordToIdx
 from boardToString import save_board
 
 from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
@@ -14,13 +14,16 @@ def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelt
     graph = creaGrafo(n)
     nelPath = [0]*(n*n)
     move_cnt = make_cnt(n)
-    path = []
-    stackNL = []
-    pos = 0
+    path = [0]
+    nelPath[0]=1
+    update_cnt(n,0,0,move_cnt,nelPath,dec=True)
+    stackNL = [[n for n in graph[0] if nelPath[n]==0][1:]]
+    pos = cordToIdx(n,1,2)
     isBackTrack = False
     while True:
-            path.append(pos)
-            nelPath[pos]=1
+            if not isBackTrack:
+                path.append(pos)
+                nelPath[pos]=1
             if id%stepSave==0:
                 save_board(nelPath,n,pos,nomeFile,id,asTab,simboli)
                 print(id)
@@ -34,19 +37,18 @@ def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelt
             doBackT = update_cnt(n,x,y,move_cnt,nelPath,dec=True)
             if not doBackT or deltalen == 1:
                 
-                if not isBackTrack:
+                if isBackTrack:
                     if path == [0]:
-                        return None
+                        return (n,None,path)
                     update_cnt(n,x,y,move_cnt,nelPath,dec=False)
                     nelPath[pos]=0
                     path.pop()
-                    pos = path.pop()
                     neighbor_list = stackNL.pop()
-                    isBackTrack = False
+                    isBackTrack = True
                 else:
                     neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
                     neighbor_list.sort(key = lambda neig: criterioScelta(n,neig,move_cnt))
-                
+
                 if neighbor_list==[]:
                     isBackTrack = True
                 else:
@@ -62,6 +64,6 @@ def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelt
 
 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativoSave(7,1,'./txt/provaiterativa2.txt',False,('⬜','⬛️','🟥'),eurMenoEntrantiDistCentroEuclidea))
+    print(percorsoCavalloIterativoSave(3,1000,'./txt/provaiterativa3.txt',False,('⬜','⬛️','🟥'),eurMenoEntrantiDistCentroEuclidea))
 
 

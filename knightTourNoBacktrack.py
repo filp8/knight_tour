@@ -36,6 +36,6 @@ def percorsoCavalloNoBack(n,start,timeOut,criterioScelta):
             pos = neighbor_list[0]
                 
 if __name__ == '__main__':
-    print(percorsoCavalloNoBack(4000,time(),None,eurMenoEntrantiDistCentro))
+    print(percorsoCavalloNoBack(4000,time(),None,eurMenoEntrantiDistCentroEuclidea))
 
 
