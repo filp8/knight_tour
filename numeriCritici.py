@@ -3,7 +3,6 @@ import os
 from pathlib import Path
 
 import csv
-import operator
 
 from boardUtil import isValidSolution
 
@@ -43,8 +42,8 @@ def find_max(filename:str, max_index:int, algorithmName:str, algo_index:int, eur
                     max = conf
     return max
 
-def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outDataFileName):
-    writeThreshold=10
+def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outDataFileName, writeThreshold=10):
+    minDelta=100
     
     fail = []
     gooal = []
@@ -62,7 +61,7 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
         if record_exists(outDataFileName,numero,algoritmName,euristicName):
             inizio = find_max(outDataFileName, 0, algoritmName, 1,euristicName, 2)+1
             if fine<=inizio:
-                fine = inizio+100
+                fine = inizio + minDelta
     else:
         outDataFolderName=os.path.dirname(outDataFileName)
         Path(outDataFolderName).mkdir(parents=True, exist_ok=True)
