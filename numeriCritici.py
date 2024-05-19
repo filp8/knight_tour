@@ -76,7 +76,10 @@ def cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristich
     for algoritmo in algoritmi:
         for euristica in euristiche:
             if not (algoritmo.__name__=='percorsoCavalloNoBackNoCount' and euristica.__name__[:15] == 'eurMenoEntranti'):
-                cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,euristica,outDataFileName)
+                print(f'algoritmo={algoritmo.__name__}; euristica={euristica.__name__};')
+                fail,gooal,nonRisolvibili=cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,euristica,outDataFileName)
+                print(f'fail={str(len(fail)) if fail else "None"}; gooal={str(len(gooal)) if gooal else "None"}; gooal={str(len(nonRisolvibili)) if nonRisolvibili else "None"};')
+
     return
 
 def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outDataFileName, writeThreshold=10):
@@ -148,9 +151,6 @@ if __name__ == '__main__':
     euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
 
     cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
-
-
-
 
     #   NUMERI CRITICI SINGOLO ALGORITMO
     # inizio = 0
