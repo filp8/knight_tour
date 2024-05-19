@@ -76,9 +76,11 @@ def cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristich
     for algoritmo in algoritmi:
         for euristica in euristiche:
             if not (algoritmo.__name__=='percorsoCavalloNoBackNoCount' and euristica.__name__[:15] == 'eurMenoEntranti'):
-                print(f'algoritmo={algoritmo.__name__}; euristica={euristica.__name__};')
+                algoEurNames=f'algoritmo={algoritmo.__name__} euristica={euristica.__name__}:'
+                print("\n"+algoEurNames)
                 fail,gooal,nonRisolvibili=cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,euristica,outDataFileName)
-                print(f'fail={str(len(fail)) if fail else "None"}; gooal={str(len(gooal)) if gooal else "None"}; gooal={str(len(nonRisolvibili)) if nonRisolvibili else "None"};')
+                print(algoEurNames)
+                print(f'   fail={str(len(fail)) if fail else "None"}; gooal={str(len(gooal)) if gooal else "None"}; gooal={str(len(nonRisolvibili)) if nonRisolvibili else "None"};')
 
     return
 
@@ -108,6 +110,7 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
         print(f'Fatti tutti in [{inizio}, {fine}] con timeout>={timeOut}.')
         return (None, None, None)
 
+    print(f'nToDoList={nToDoList}')
     for n in nToDoList:
         numero,tempo,esito = algoritmo(n,time(),timeOut,criterioScelta)
         ris = str(len(esito)>0 if esito!=None else None)
@@ -146,7 +149,7 @@ if __name__ == '__main__':
     fine = 100
     step = 1
     timeOut = 1.0
-    outDataFileName = './data/data3.csv'
+    outDataFileName = './data/data4.csv'
     algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
     euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
 

@@ -51,13 +51,13 @@ def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
             if isBackTrack:
                 path.pop()
                 if path == [0]:
-                    return (n,time()-start,None)
+                    return (n, time()-start if start else None,None)
                 else:
                     update_cnt(n,x,y,move_cnt,nelPath,dec=False)
                     nelPath[pos]=0
                     pos = path.pop()
                 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativo(27,None,None,eurMenoEntrantiDistCentroEuclidea))
+    print(percorsoCavalloIterativo(7,None,None,eurMenoEntrantiDistCentroEuclidea))
 
 

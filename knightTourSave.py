@@ -31,9 +31,16 @@ def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelt
                 return (n,time()-start,path)
 
             x,y = idxToCord(n,pos)
-
-            if not update_cnt(n,x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
-                if isBackTrack:
+            doBackT = update_cnt(n,x,y,move_cnt,nelPath,dec=True)
+            if not doBackT or deltalen == 1:
+                
+                if not isBackTrack:
+                    if path == [0]:
+                        return None
+                    update_cnt(n,x,y,move_cnt,nelPath,dec=False)
+                    nelPath[pos]=0
+                    path.pop()
+                    pos = path.pop()
                     neighbor_list = stackNL.pop()
                     isBackTrack = False
                 else:
@@ -48,19 +55,13 @@ def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelt
             else:
                 isBackTrack = True
 
-            if isBackTrack:
-                path.pop()
-                if path == [0]:
-                    return None
-                else:
-                    update_cnt(n,x,y,move_cnt,nelPath,dec=False)
-                    nelPath[pos]=0
-                    pos = path.pop()
+                
+
                 
 
 
 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativoSave(2000,10000,'./txt/provaiterativa.txt',False,('⬜','⬛️','🟥'),eurMenoEntrantiDistCentro))
+    print(percorsoCavalloIterativoSave(7,1,'./txt/provaiterativa2.txt',False,('⬜','⬛️','🟥'),eurMenoEntrantiDistCentroEuclidea))
 
 
