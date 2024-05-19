@@ -1,6 +1,9 @@
 from time import time
+
 from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
-from criteriSceltaHamilton import eurDistCentro,eurMenoEntrantiDistCentro
+
+from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
+                                  eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
 
 
 def percorsoCavalloIterativoTimeOut(n,start,timeOut,criterioScelta):

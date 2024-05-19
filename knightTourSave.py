@@ -1,8 +1,10 @@
 from time import time
 
 from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
-from criteriSceltaHamilton import eurDistCentro,eurMenoEntrantiDistCentro
 from boardToString import save_board
+
+from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
+                                  eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
 
 def percorsoCavalloIterativoSave(n,stepSave,nomeFile,asTab,simboli,criterioScelta,id=0):
     if n<3:

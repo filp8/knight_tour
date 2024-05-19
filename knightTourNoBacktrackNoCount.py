@@ -1,7 +1,9 @@
 from time import time
+
 from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
-from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
-eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan, eurDistCentroManhattan
+
+from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
+                                  eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
 
 
 def percorsoCavalloNoBackNoCount(n,start,timeOut,criterioScelta):

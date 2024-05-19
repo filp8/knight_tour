@@ -1,11 +1,11 @@
 import sys
 sys.setrecursionlimit(1_100_000)
 from time import time
-from math import sqrt
-from boardUtil import idxToCord,creaGrafo,update_cnt,make_cnt
-from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
-eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan
 
+from boardUtil import idxToCord,creaGrafo,update_cnt,make_cnt
+
+from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
+                                  eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
 
 
 def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,criterioScelta,start):

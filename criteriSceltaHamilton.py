@@ -11,6 +11,9 @@ def eurDistCentroEuclidea(n,pos,move_cnt):
 def eurDistCentroManhattan(n,pos,move_cnt):
     return -dist_centro_manhattan(n,pos)
 
+def eurDistCentroOnion(n,pos,move_cnt):
+    return -dist_centro_onion(n,pos)
+
 
 def eurMenoEntranti(n,pos,move_cnt):
     return move_cnt[pos]*n
@@ -21,9 +24,12 @@ def eurMenoEntrantiDistCentroEuclidea(n,pos,move_cnt):
 def eurMenoEntrantiDistCentroManhattan(n,pos,move_cnt):
     return (move_cnt[pos]*n)-dist_centro_manhattan(n,pos)
 
+def eurMenoEntrantiDistCentroOnion(n,pos,move_cnt):
+    return (move_cnt[pos]*n)-dist_centro_onion(n,pos)
 
 
-def dist_centro_euclidea(n,pos,move_cnt):
+
+def dist_centro_euclidea(n,pos):
     x,y = idxToCord(n,pos)
     centro = n/2
     return sqrt((x-centro)**2+(y-centro)**2)
@@ -40,6 +46,20 @@ def dist_centro_manhattan(n,pos):
             ydist+=1
     return  xdist+ydist
 
+def dist_centro_onion(n,pos):
+    x,y = idxToCord(n,pos)
+    centro = ((n+1)//2)-1
+    xdist = abs(centro-x)
+    ydist = abs(centro-y)
+    if n%2==0:
+        if x<=centro:
+            xdist+=1
+        if y<=centro:
+            ydist+=1
+
+    return  max(xdist,ydist)
+
+    printCriterio(6,dist_centro_manhattan)
 def printCriterio(n,criterio):
     boardOut=[]
     for y in range(n):
