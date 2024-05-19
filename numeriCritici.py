@@ -11,8 +11,8 @@ from knightTourNoBacktrack import percorsoCavalloNoBack
 from knightTourNoBacktrackNoCount import percorsoCavalloNoBackNoCount
 from knightTourRicorsivo import percorsoCavalloRicorsivo
 
-from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
-eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan
+from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
+                                  eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
 
 
 
@@ -29,18 +29,48 @@ def record_exists(filename, numero,nomeAlgoritmo,nomeEuristica):
                 return True
     return False
 
-def find_max(filename:str, max_index:int, algorithmName:str, algo_index:int, euristicName:str, eur_index:int):
+def find_max(filename:str, max_index:int, algorithmName:str, algo_index:int, euristicName:str, eur_index:int, timeOut:str, timeOut_index:int, result_index:int):
     with open(filename, 'r') as file:
         reader = csv.reader(file)
         next(reader)  # Salta l'intestazione
         max = 0
         for row in reader:
-            if algorithmName==row[algo_index] and euristicName==row[eur_index]:
+            if row[result_index]=='True' and row[algo_index]==algorithmName and row[eur_index]==euristicName and row[timeOut_index]>=timeOut:
                 # record con uguale algo ed eur
                 conf=int(row[max_index])
                 if conf>max:
                     max = conf
     return max
+
+def find_not_done_n_list(filename:str, min_n:int, max_n:int, step:int, algorithmName:str, euristicName:str, timeOut:float)->list[int]:
+    n_index:int=0
+    algo_index:int=1
+    eur_index:int=2
+    timeOut_index:int=3
+    result_index:int=5
+    
+    isToDoArr=[True]*(max_n-min_n+1)
+    
+    with open(filename, 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Salta l'intestazione
+        for row in reader:
+            rec_n=int(row[n_index])
+            rec_algo=row[algo_index]
+            rec_eur=row[eur_index]
+            rec_timeout=float(row[timeOut_index])
+            rec_result_str=row[result_index]
+            rec_completed = rec_result_str=='True' or rec_result_str=='None'
+            
+            isDone =    (min_n <= rec_n <= max_n and (rec_n-min_n)%step==0) and \
+                            (\
+                                (rec_completed and rec_algo==algorithmName and rec_eur==euristicName) or \
+                                (not rec_completed and rec_timeout >= timeOut)\
+                            )
+                            
+            if isDone:
+                isToDoArr[rec_n-min_n] = False
+    return [n+min_n for n, isToDo in enumerate(isToDoArr) if isToDo]
 
 def cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName):
     for algoritmo in algoritmi:
@@ -50,7 +80,6 @@ def cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristich
     return
 
 def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outDataFileName, writeThreshold=10):
-    minDelta=100
     
     fail = []
     gooal = []
@@ -62,27 +91,26 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
     
     if inizio<1:
         inizio = 1
-
+        
     if file_exists(outDataFileName):
-        numero,tempo,esito = algoritmo(inizio,time(),timeOut,criterioScelta)
-        if record_exists(outDataFileName,numero,algoritmName,euristicName):
-            inizio = find_max(outDataFileName, 0, algoritmName, 1,euristicName, 2)+1
-            if fine<=inizio:
-                fine = inizio + minDelta
+        nToDoList=find_not_done_n_list(outDataFileName, inizio, fine, step, algoritmo, criterioScelta, timeOut)
     else:
-        outDataFolderName=os.path.dirname(outDataFileName)
-        Path(outDataFolderName).mkdir(parents=True, exist_ok=True)
+        Path(os.path.dirname(outDataFileName)).mkdir(parents=True, exist_ok=True) # make dir if not exists
         with open(outDataFileName, 'w', newline='') as file:
             writer = csv.writer(file)
-            writer.writerows([['numero','nome algoritmo','nome euristica','tempo secondi','risultato']])
-        
+            writer.writerows([['numero','nome algoritmo','nome euristica','time_out','tempo secondi','risultato']])
+        nToDoList=[n for n in range(inizio, fine+1, step)]
+    
+    if not nToDoList:
+        print(f'Fatti tutti in [{inizio}, {fine}] con timeout>={timeOut}.')
+        return (None, None, None)
 
-    for n in range(inizio,fine,step):
+    for n in nToDoList:
         numero,tempo,esito = algoritmo(n,time(),timeOut,criterioScelta)
-        ris = esito if esito == None else False if esito == [] else True 
+        ris = str(len(esito)>0 if esito!=None else None)
         temp = format(tempo,'.4f')
 
-        record.append([numero,algoritmName,euristicName,temp,ris])
+        record.append([numero,algoritmName,euristicName,timeOut,temp,ris])
 
         if esito==None:
             nonRisolvibili.append(numero)
@@ -112,7 +140,7 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 if __name__ == '__main__':
 
     inizio = 0
-    fine = 20
+    fine = 100
     step = 1
     timeOut = 1.0
     outDataFileName = './data/data3.csv'
@@ -128,16 +156,16 @@ if __name__ == '__main__':
     # inizio = 0
     # fine = 10000
     # step = 1
-    # timeOut = 100.0
-    # outDataFileName = './data/data1.csv'
-    # fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloNoBack,eurMenoEntrantiDistCentroManhattan,outDataFileName)
+    # timeOut = 1.0
+    # outDataFileName = './data/data2.csv'
+    # fail,goal,nonRisolvibili = cercaNumeriCritici(inizio, fine, step, timeOut, percorsoCavalloIterativo,eurMenoEntrantiDistCentroManhattan, outDataFileName)
 
-    # print(gooal)
+    # print(goal)
     # print()
     # print(fail)
     # print(f'\n\n inizio:{inizio}     fine:{fine}     step:{step}     timeOut:{timeOut}')
-    # print(f'\n goal:{len(gooal)}')
-    # print(f'\n fail:{len(fail)}')
-    # print(f'\n nonRisolvibili:{len(nonRisolvibili)}')
+    # print(f'\n goal:{str(len(goal)) if goal else "None"}')
+    # print(f'\n fail:{str(len(fail)) if fail else "None"}')
+    # print(f'\n nonRisolvibili:{str(len(nonRisolvibili)) if nonRisolvibili else "None"}')
 
     # print(find_max('./data/data1.csv',0))
