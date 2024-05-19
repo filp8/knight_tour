@@ -31,6 +31,13 @@ def eurDistManhattan(n,pos,move_cnt):
 def eurMenoEntrantiDistCentroManhattan(n,pos,move_cnt):
     return (move_cnt[pos]*n)-dist_centro_manhattan(n,pos,move_cnt)
 
+def eurMenoEntrantiDistCentroF(n,pos,move_cnt):
+    return (move_cnt[pos]*n)-dist_centro_f(n,pos,move_cnt)
+
+def eurDistCentroF(n,pos,move_cnt):
+    return -dist_centro_f(n,pos,move_cnt)
+
+
 def dist_centro_manhattan(n,pos,move_cnt):
     x,y = idxToCord(n,pos)
     centro = ((n+1)//2)-1
@@ -43,5 +50,18 @@ def dist_centro_manhattan(n,pos,move_cnt):
             ydist+=1
     return  xdist+ydist
 
+def dist_centro_f(n,pos,move_cnt):
+    x,y = idxToCord(n,pos)
+    centro = ((n+1)//2)-1
+    xdist = abs(centro-x)
+    ydist = abs(centro-y)
+    if n%2==0:
+        if x<=centro:
+            xdist+=1
+        if y<=centro:
+            ydist+=1
+
+    return  max(xdist,ydist)
+
 if __name__=='__main__':
-    printCriterio(5,dist_centro_manhattan)
+    printCriterio(6,dist_centro_manhattan)

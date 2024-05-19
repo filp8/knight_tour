@@ -10,7 +10,7 @@ from knightTourNoBacktrack import percorsoCavalloNoBack
 from knightTourRicorsivo import percorsoCavalloRicorsivo
 
 from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
-eurDistManhattan,eurMenoEntrantiDistCentroManhattan
+eurDistManhattan,eurMenoEntrantiDistCentroManhattan,eurDistCentroF
 
 
 
@@ -69,7 +69,6 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
         elif esito ==[]:
             fail.append(numero)
             print(f'n={n} FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-
         else:
             gooal.append(numero)
             print(f'n={n} found in {tempo:.3f}sec')
@@ -93,12 +92,12 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 
 if __name__ == '__main__':
     inizio = 0
-    fine = 1000
+    fine = 50
     step = 1
     timeOut = 6.0
     outDataFileName = './data/data1.csv'
 
-    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloIterativo,eurDistManhattan,outDataFileName)
+    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloIterativo,eurDistCentroF,outDataFileName)
 
     print(gooal)
     print()
