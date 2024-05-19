@@ -4,11 +4,14 @@ from time import time
 from math import sqrt
 from boardUtil import idxToCord,creaGrafo,update_cnt,make_cnt
 from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
-eurDistManhattan,eurMenoEntrantiDistCentroManhattan
+eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan
 
 
 
 def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,criterioScelta,start):
+    if n<3:
+        return (n,time()-start,None)
+    
     path.append(pos)
     nelPath[pos]=1
     deltalen=len(graph)-len(path)

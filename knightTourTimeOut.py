@@ -5,7 +5,8 @@ from criteriSceltaHamilton import eurDistCentro,eurMenoEntrantiDistCentro
 
 def percorsoCavalloIterativoTimeOut(n,start,timeOut,criterioScelta):
     if n<3:
-        return None
+        return (n,0,None)
+    
     graph = creaGrafo(n)
     nelPath = [0]*(n*n)
     move_cnt = make_cnt(n)

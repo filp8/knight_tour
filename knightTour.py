@@ -2,12 +2,13 @@ from time import time
 from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
 
 from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
-eurDistManhattan,eurMenoEntrantiDistCentroManhattan
+eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan
 
 
-def percorsoCavalloIterativo(n,start,timeOut,criterioScelta): #TODO fixare!
+def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
     if n<3:
-        return None
+        return (n,time()-start,None)
+    
     graph = creaGrafo(n)
     nelPath = [0]*(n*n)
     move_cnt = make_cnt(n)
@@ -18,9 +19,7 @@ def percorsoCavalloIterativo(n,start,timeOut,criterioScelta): #TODO fixare!
     cnt_it = 0
     cnt_back = 0
     while True:
-            if timeOut and time()-start>timeOut:
-                return (n,time()-start,[])
-            #print(f'n={n} iterazioni={cnt_it} backtrack={cnt_back}')
+            print(f'n={n} iterazioni={cnt_it} backtrack={cnt_back}')
             cnt_it+=1
             path.append(pos)
             nelPath[pos]=1
@@ -58,6 +57,6 @@ def percorsoCavalloIterativo(n,start,timeOut,criterioScelta): #TODO fixare!
                     pos = path.pop()
                 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativo(16,None,None,eurDistManhattan))
+    print(percorsoCavalloIterativo(27,None,None,eurMenoEntrantiDistCentroEuclidea))
 
 

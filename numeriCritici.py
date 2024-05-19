@@ -1,5 +1,7 @@
 from time import time
-import os  
+import os
+from pathlib import Path
+
 import csv
 import operator
 
@@ -7,10 +9,11 @@ from boardUtil import isValidSolution
 
 from knightTour import percorsoCavalloIterativo
 from knightTourNoBacktrack import percorsoCavalloNoBack
+from knightTourNoBacktrackNoCount import percorsoCavalloNoBackNoCount
 from knightTourRicorsivo import percorsoCavalloRicorsivo
 
 from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
-eurDistManhattan,eurMenoEntrantiDistCentroManhattan,eurDistCentroF
+eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan
 
 
 
@@ -27,18 +30,22 @@ def record_exists(filename, numero,nomeAlgoritmo,nomeEuristica):
                 return True
     return False
 
-def find_max(filename, column_index):
+def find_max(filename:str, max_index:int, algorithmName:str, algo_index:int, euristicName:str, eur_index:int):
     with open(filename, 'r') as file:
         reader = csv.reader(file)
         next(reader)  # Salta l'intestazione
         max = 0
         for row in reader:
-            conf=int(row[column_index])
-            if conf>max:
-                max = conf
+            if algorithmName==row[algo_index] and euristicName==row[eur_index]:
+                # record con uguale algo ed eur
+                conf=int(row[max_index])
+                if conf>max:
+                    max = conf
     return max
 
 def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outDataFileName):
+    writeThreshold=10
+    
     fail = []
     gooal = []
     nonRisolvibili = []
@@ -47,15 +54,22 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
     algoritmName = str(algoritmo).split(' ')[1]
     euristicName = str(criterioScelta).split(' ')[1]
     
-    if inizio<5:
-        inizio = 5
+    if inizio<1:
+        inizio = 1
 
     if file_exists(outDataFileName):
         numero,tempo,esito = algoritmo(inizio,time(),timeOut,criterioScelta)
         if record_exists(outDataFileName,numero,algoritmName,euristicName):
-            inizio = find_max(outDataFileName,0)+1
+            inizio = find_max(outDataFileName, 0, algoritmName, 1,euristicName, 2)+1
             if fine<=inizio:
                 fine = inizio+100
+    else:
+        outDataFolderName=os.path.dirname(outDataFileName)
+        Path(outDataFolderName).mkdir(parents=True, exist_ok=True)
+        with open(outDataFileName, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows([['numero','nome algoritmo','nome euristica','tempo secondi','risultato']])
+        
 
     for n in range(inizio,fine,step):
         numero,tempo,esito = algoritmo(n,time(),timeOut,criterioScelta)
@@ -66,38 +80,37 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 
         if esito==None:
             nonRisolvibili.append(numero)
+            print(f'n={n} UNSOLVABLE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         elif esito ==[]:
             fail.append(numero)
-            print(f'n={n} FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            print(f'n={n} FAILED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         else:
             gooal.append(numero)
             print(f'n={n} found in {tempo:.3f}sec')
             if not isValidSolution(n, esito):
-                print(f'n={n} INVALID SOLUTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-            
-    
-    if file_exists(outDataFileName):
-        with open(outDataFileName, 'a', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows(record)
-    else:
-        with open(outDataFileName, 'w', newline='') as file:
-            writer = csv.writer(file)
-            writer.writerows([['numero','nome algoritmo','nome euristica','tempo secondi','risultato']])
-            writer.writerows(record)
+                print(f'n={n} INVALID SOLUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
+        if not n % writeThreshold:
+            with open(outDataFileName, 'a', newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(record)
+            record.clear()
+
+    with open(outDataFileName, 'a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerows(record)
 
     return fail,gooal,nonRisolvibili
 
 
 if __name__ == '__main__':
     inizio = 0
-    fine = 50
+    fine = 10000
     step = 1
-    timeOut = 6.0
+    timeOut = 100.0
     outDataFileName = './data/data1.csv'
 
-    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloIterativo,eurDistCentroF,outDataFileName)
+    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloNoBack,eurMenoEntrantiDistCentroManhattan,outDataFileName)
 
     print(gooal)
     print()
