@@ -1,10 +1,12 @@
 
 
 def print_board(vett,n):
+    maxl = len(str(max(vett,key = lambda n: len(str(n)))))
+    
     sOut = ''
     cnt = 0
     for cas in vett:
-        sOut+=str(cas)
+        sOut += f' {str(cas):^{maxl}s}'
         cnt+=1
         if cnt == n:
             sOut+='\n'

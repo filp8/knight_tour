@@ -40,3 +40,21 @@ def update_cnt(n,x,y,cnt,nelPath,dec):
                     else:
                         cnt[t_idx]+=1
     return rev
+
+def isValidSolution(n:int, posSequence:list[int])->bool:
+    posCount = len(posSequence)
+    if posCount != n*n:
+        print(f'n={n}: invalid posCount={posCount}, n*n={n*n}')
+        print(posSequence)
+        return False
+    for iPos, pos in enumerate(posSequence):
+        if iPos>0:
+            xFrom, yFrom = idxToCord(n, posSequence[iPos-1])
+            xTo, yTo = idxToCord(n, pos)
+            absDx=abs(xFrom-xTo)
+            absDy=abs(yFrom-yTo)
+            if absDx+absDy != 3:
+                print(posSequence)
+                print(f'n={n}: invalid move! pos={pos} from=({xFrom},{yFrom}), to=({xTo},{yTo})')
+                return False
+    return True

@@ -1,9 +1,14 @@
 *.png
 *.tab
 .DS_Store
+
 !percorsi/
 !percorsi/.gitkeep
 percorsi/*
+
+!data/
+!data/.gitkeep
+data/*
 
 !img/
 img/*

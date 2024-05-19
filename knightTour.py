@@ -1,6 +1,9 @@
 from time import time
 from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
-from criteriSceltaHamilton import eurDistCentro,eurMenoEntrantiDistCentro
+
+from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
+eurDistManhattan,eurMenoEntrantiDistCentroManhattan
+
 
 def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
     if n<3:
@@ -53,6 +56,6 @@ def percorsoCavalloIterativo(n,start,timeOut,criterioScelta):
                     pos = path.pop()
                 
 if __name__ == '__main__':
-    print(percorsoCavalloIterativo(27,None,None,eurMenoEntrantiDistCentro))
+    print(percorsoCavalloIterativo(27,None,None,eurMenoEntrantiDistCentroEuclidea))
 
 

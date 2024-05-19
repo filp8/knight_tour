@@ -3,13 +3,14 @@ import os
 import csv
 import operator
 
-
+from boardUtil import isValidSolution
 
 from knightTour import percorsoCavalloIterativo
 from knightTourNoBacktrack import percorsoCavalloNoBack
 from knightTourRicorsivo import percorsoCavalloRicorsivo
 
-from criteriSceltaHamilton import eurDistCentro,eurMenoEntrantiDistCentro,eurMenoEntranti
+from criteriSceltaHamilton import eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,\
+eurDistManhattan,eurMenoEntrantiDistCentroManhattan
 
 
 
@@ -54,7 +55,7 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
         if record_exists(outDataFileName,numero,algoritmName,euristicName):
             inizio = find_max(outDataFileName,0)+1
             if fine<=inizio:
-                fine = inizio+10
+                fine = inizio+100
 
     for n in range(inizio,fine,step):
         numero,tempo,esito = algoritmo(n,time(),timeOut,criterioScelta)
@@ -68,8 +69,14 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
             nonRisolvibili.append(numero)
         elif esito ==[]:
             fail.append(numero)
+            print(f'n={n} FAILED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
         else:
             gooal.append(numero)
+            print(f'n={n} found in {ret[1]:.3f}sec')
+            if not isValidSolution(n, esito):
+                print(f'n={n} INVALID SOLUTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+            
     
     if file_exists(outDataFileName):
         with open(outDataFileName, 'a', newline='') as file:
@@ -86,13 +93,13 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 
 
 if __name__ == '__main__':
-    inizio = 20
-    fine = 100
+    inizio = 0
+    fine = 1000
     step = 1
     timeOut = 1000.0
     outDataFileName = './data/data1.csv'
 
-    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloRicorsivo,eurMenoEntrantiDistCentro,outDataFileName)
+    fail,gooal,nonRisolvibili = cercaNumeriCritici(inizio,fine,step,timeOut,percorsoCavalloNoBack,eurDistManhattan,outDataFileName)
 
     print(gooal)
     print()
