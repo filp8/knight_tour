@@ -6,9 +6,6 @@
 !percorsi/.gitkeep
 percorsi/*
 
-!data/
-!data/.gitkeep
-data/*
 
 !img/
 img/*
@@ -16,8 +13,7 @@ img/*
 
 !txt/
 txt/*
-!txt/.gitkeep
-
+data/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
