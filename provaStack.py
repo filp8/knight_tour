@@ -58,7 +58,7 @@ def percorsoCavalloStack(n:int, start:float, timeOut:float, criterioScelta:Calla
             pos,neighbor_list = stack.pop()
         else:
             neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
-            neighbor_list.sort(key = lambda neig: criterioScelta(n,neig,move_cnt))
+            neighbor_list.sort(key = lambda neig: criterioScelta(n,neig,move_cnt[neig]))
         
         if neighbor_list==[]:
             if not isLast:
@@ -81,7 +81,7 @@ if __name__ == '__main__':
     nomeFile='./txt/provaiterativa2.txt'
     #nomeFile=None
 
-    numero,tempo,esito =percorsoCavalloIterativo(n, start, timeOut, criterioScelta, nomeFile)
+    numero,tempo,esito =percorsoCavalloStack(n, start, timeOut, criterioScelta, nomeFile)
     print(numero,tempo,esito)
     if esito and not isValidSolution(n, esito):
         print(f'n={n} INVALID SOLUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
