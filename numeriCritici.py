@@ -7,6 +7,7 @@ import csv
 from boardUtil import isValidSolution
 
 from knightTour import percorsoCavalloIterativo
+from provaStack import percorsoCavalloStack
 from knightTourNoBacktrack import percorsoCavalloNoBack
 from knightTourNoBacktrackNoCount import percorsoCavalloNoBackNoCount
 from knightTourNoGraph import percorsoCavalloIterativoNoGraph
@@ -153,11 +154,11 @@ if __name__ == '__main__':
     timeOut = 600.0
     outDataFileName = './data/data4.csv'
     
-    # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
+    # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo,percorsoCavalloStack]
     # euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
     algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack]
     # algoritmi = [percorsoCavalloIterativoNoGraph]
-    euristiche = [eurMenoEntrantiDistCentroEuclidea,eurMenoEntrantiDistCentroManhattan]
+    euristiche = [eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan]
 
     cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
     
