@@ -7,7 +7,6 @@ import csv
 from boardUtil import isValidSolution
 
 from knightTour import percorsoCavalloIterativo
-from knightTour import percorsoCavalloIterativoSave
 from knightTourNoBacktrack import percorsoCavalloNoBack
 from knightTourNoBacktrackNoCount import percorsoCavalloNoBackNoCount
 from knightTourRicorsivo import percorsoCavalloRicorsivo
@@ -145,7 +144,8 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 
 
 if __name__ == '__main__':
-
+    start=time()
+    
     inizio = 5
     fine = 100
     step = 1
@@ -158,6 +158,8 @@ if __name__ == '__main__':
     euristiche = [eurMenoEntrantiDistCentroEuclidea,eurMenoEntrantiDistCentroManhattan]
 
     cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
+    
+    print(time()-start)
 
     #   NUMERI CRITICI SINGOLO ALGORITMO
     # inizio = 0
