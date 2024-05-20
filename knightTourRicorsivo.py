@@ -1,5 +1,6 @@
 import sys
 sys.setrecursionlimit(1_100_000)
+
 from time import time
 
 from boardUtil import idxToCord,creaGrafo,update_cnt,make_cnt
@@ -8,7 +9,8 @@ from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan,
                                   eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
 
 
-def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,criterioScelta,start):
+def hamiltonian_path(n, graph, pos, path, nelPath, move_cnt, criterioScelta):
+    start=time()
     if n<3:
         return (n,time()-start,None)
     
@@ -33,11 +35,11 @@ def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,criterioScelta,start)
     update_cnt(n,x,y,move_cnt,nelPath,dec=False)
     return (n,time()-start,None)
 
-def percorsoCavalloRicorsivo(n,start,timeOut,criterioScelta):
+def percorsoCavalloRicorsivo(n, timeOut, criterioScelta):
     graf = creaGrafo(n)
     used = [0]*(n*n)
     move_cnt = make_cnt(n)
-    sol = hamiltonian_path(n,graf,0,[],used,move_cnt,criterioScelta,start)
+    sol = hamiltonian_path(n,graf,0,[],used,move_cnt,criterioScelta)
     return sol
 
 if __name__ == '__main__':

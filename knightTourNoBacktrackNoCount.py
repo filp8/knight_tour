@@ -8,7 +8,7 @@ from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan,
                                   eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
 
 
-def percorsoCavalloNoBackNoCount(n:int, start:float, timeOut:float, criterioScelta:Callable[[int, int, list[int]], float], nomeFile:str=None, stepSave:int=1, asTab:bool=False, simboli:tuple[str]=('⬜','⬛️','🟥'), id:int=0):
+def percorsoCavalloNoBackNoCount(n:int, timeOut:float, criterioScelta:Callable[[int, int, list[int]], float], nomeFile:str=None, stepSave:int=1, asTab:bool=False, simboli:tuple[str]=('⬜','⬛️','🟥'), id:int=0):
     if n<3:
         return (n,0,None)
     
@@ -51,12 +51,11 @@ def percorsoCavalloNoBackNoCount(n:int, start:float, timeOut:float, criterioScel
 
 if __name__ == '__main__':
     n=7
-    start=None
     criterioScelta=eurMenoEntrantiDistCentroEuclidea
     timeOut=3600*24*7
     nomeFile=None
     
-    result=percorsoCavalloNoBackNoCount(n, start, timeOut, criterioScelta, nomeFile)
+    result=percorsoCavalloNoBackNoCount(n, timeOut, criterioScelta, nomeFile)
     print(result)
 
 

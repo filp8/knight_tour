@@ -7,7 +7,7 @@ from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan,
                                   eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
 
 
-def percorsoCavalloIterativo(n:int, start:float, timeOut:float, criterioScelta:Callable[[int, int, list[int]], float], nomeFile:str=None, stepSave:int=1, asTab:bool=False, simboli:tuple[str]=('⬜','⬛️','🟥'), id:int=0):
+def percorsoCavalloIterativo(n:int, timeOut:float, criterioScelta:Callable[[int, int, list[int]], float], nomeFile:str=None, stepSave:int=1, asTab:bool=False, simboli:tuple[str]=('⬜','⬛️','🟥'), id:int=0):
     if n<3:
         return (n,0,None)
     
@@ -76,13 +76,12 @@ def percorsoCavalloIterativo(n:int, start:float, timeOut:float, criterioScelta:C
 
 if __name__ == '__main__':
     n=7
-    start=None
     criterioScelta=eurMenoEntrantiDistCentroEuclidea
     timeOut=3600*24*7
     nomeFile='./txt/provaiterativa2.txt'
     #nomeFile=None
 
-    numero,tempo,esito =percorsoCavalloIterativo(n, start, timeOut, criterioScelta, nomeFile)
+    numero,tempo,esito =percorsoCavalloIterativo(n, timeOut, criterioScelta, nomeFile)
     print(numero,tempo,esito)
     if esito and not isValidSolution(n, esito):
         print(f'n={n} INVALID SOLUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')

@@ -25,7 +25,7 @@ def getUnvisitedNeighboursWithCount(n:int, fromPos:int, isInPath:list[int])->lis
     return outList
     
     
-def percorsoCavalloIterativoNoGraph(n:int, start:float, timeOut:float, criterioScelta:Callable[[int, int, list[int]], float], nomeFile:str=None, stepSave:int=1, asTab:bool=False, simboli:tuple[str]=('⬜','⬛️','🟥'), id:int=0):
+def percorsoCavalloIterativoNoGraph(n:int, timeOut:float, criterioScelta:Callable[[int, int, list[int]], float], nomeFile:str=None, stepSave:int=1, asTab:bool=False, simboli:tuple[str]=('⬜','⬛️','🟥'), id:int=0):
     start = time()
     if n<3:
         return (n,0,None)
@@ -79,13 +79,12 @@ def percorsoCavalloIterativoNoGraph(n:int, start:float, timeOut:float, criterioS
 
 if __name__ == '__main__':
     n=7
-    start=None
     criterioScelta=eurMenoEntrantiDistCentroEuclidea
     timeOut=3600*24*7
     nomeFile='./txt/provaiterativa2.txt'
     #nomeFile=None
 
-    numero,tempo,esito =percorsoCavalloIterativoNoGraph(n, start, timeOut, criterioScelta, nomeFile)
+    numero,tempo,esito =percorsoCavalloIterativoNoGraph(n, timeOut, criterioScelta, nomeFile)
     print(numero,tempo,esito)
     if esito and not isValidSolution(n, esito):
         print(f'n={n} INVALID SOLUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
