@@ -80,7 +80,7 @@ def cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristich
             if not (algoritmo.__name__=='percorsoCavalloNoBackNoCount' and euristica.__name__[:15] == 'eurMenoEntranti'):
                 algoEurNames=f'algoritmo={algoritmo.__name__} euristica={euristica.__name__}:'
                 print("\n"+algoEurNames)
-                fail,goal,nonRisolvibili=cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,euristica,outDataFileName)
+                fail,goal,nonRisolvibili=cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,euristica,None)
                 print(algoEurNames)
                 print(f'   fail={str(len(fail)) if fail else "None"}; goal={str(len(goal)) if goal else "None"}; unsolvable={str(len(nonRisolvibili)) if nonRisolvibili else "None"};')
 
@@ -154,7 +154,7 @@ if __name__ == '__main__':
     timeOut = 10.0
     outDataFileName = './data/data8.csv'
     
-    algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack, percorsoCavalloIterativoNoGraph, percorsoCavalloRicorsivo, percorsoCavalloStack]
+    algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack, percorsoCavalloIterativoNoGraph, percorsoCavalloStack] # , percorsoCavalloRicorsivo
     euristiche = [eurDistCentroEuclidea, eurMenoEntrantiDistCentroEuclidea, eurMenoEntranti, eurDistCentroManhattan, eurMenoEntrantiDistCentroManhattan]
 
     #algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack]
