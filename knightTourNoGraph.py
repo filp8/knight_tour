@@ -1,6 +1,7 @@
 from time import time
 from typing import Callable
-from boardUtil import idxToCord, cordToIdx, creaGrafo,make_cnt,update_cnt,isValidSolution, getMosseCavallo
+
+from boardUtil import idxToCord, cordToIdx, getMosseCavallo, isValidSolution
 from boardToString import save_board
 
 from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \

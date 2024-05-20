@@ -26,7 +26,7 @@ def hamiltonian_path(n, graph, pos, path, nelPath, move_cnt, criterioScelta):
         neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
         neighbor_list.sort(key = lambda neig:criterioScelta(n,neig,move_cnt[neig]))
         for neighbor in neighbor_list:
-            extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt,criterioScelta,start)
+            extended_path = hamiltonian_path(n, graph, neighbor, path, nelPath, move_cnt, criterioScelta)
             if extended_path: 
                 return (n,time()-start,path)
         
@@ -43,4 +43,4 @@ def percorsoCavalloRicorsivo(n, timeOut, criterioScelta):
     return sol
 
 if __name__ == '__main__':
-    print(percorsoCavalloRicorsivo(300,None,None,eurMenoEntrantiDistCentroEuclidea))
+    print(percorsoCavalloRicorsivo(300, None, eurMenoEntrantiDistCentroEuclidea))
