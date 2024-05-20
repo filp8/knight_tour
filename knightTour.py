@@ -1,6 +1,6 @@
 from time import time
 from typing import Callable
-from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt
+from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt,isValidSolution
 from boardToString import save_board
 
 from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
@@ -83,5 +83,7 @@ if __name__ == '__main__':
     nomeFile='./txt/provaiterativa2.txt'
     #nomeFile=None
 
-    result=percorsoCavalloIterativo(n, start, timeOut, criterioScelta, nomeFile)
-    print(result)
+    numero,tempo,esito =percorsoCavalloIterativo(n, start, timeOut, criterioScelta, nomeFile)
+    print(numero,tempo,esito)
+    if esito and not isValidSolution(n, esito):
+        print(f'n={n} INVALID SOLUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
