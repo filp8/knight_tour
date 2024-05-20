@@ -147,10 +147,10 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 if __name__ == '__main__':
     start=time()
     
-    inizio = 1600
-    fine = 1600
+    inizio = 1700
+    fine = 1700
     step = 1
-    timeOut = 100.0
+    timeOut = 600.0
     outDataFileName = './data/data4.csv'
     
     # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
