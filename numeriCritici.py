@@ -7,7 +7,7 @@ import csv
 from boardUtil import isValidSolution
 
 from knightTour import percorsoCavalloIterativo
-from knightTourSave import percorsoCavalloIterativoSave
+from knightTour import percorsoCavalloIterativoSave
 from knightTourNoBacktrack import percorsoCavalloNoBack
 from knightTourNoBacktrackNoCount import percorsoCavalloNoBackNoCount
 from knightTourRicorsivo import percorsoCavalloRicorsivo
@@ -154,7 +154,7 @@ if __name__ == '__main__':
     
     # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
     # euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
-    algoritmi = [percorsoCavalloIterativoSave, percorsoCavalloNoBack, percorsoCavalloRicorsivo]
+    algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack, percorsoCavalloRicorsivo]
     euristiche = [eurMenoEntrantiDistCentroEuclidea,eurMenoEntrantiDistCentroManhattan]
 
     cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
