@@ -60,13 +60,13 @@ def find_not_done_n_list(filename:str, min_n:int, max_n:int, step:int, algorithm
             rec_eur=row[eur_index]
             rec_timeout=float(row[timeOut_index])
             rec_result_str=row[result_index]
-            rec_completed = rec_result_str=='True' or rec_result_str=='None'
+            rec_completed = rec_result_str!='False'
             
-            isDone =    (min_n <= rec_n <= max_n and (rec_n-min_n)%step==0) and \
-                            (\
-                                (rec_completed and rec_algo==algorithmName and rec_eur==euristicName) or \
-                                (not rec_completed and rec_timeout >= timeOut)\
-                            )
+            isDone =    (min_n <= rec_n <= max_n) and \
+                        ((rec_n-min_n)%step==0)   and \
+                        rec_algo==algorithmName   and \
+                        rec_eur==euristicName     and \
+                        (rec_completed or (not rec_completed and rec_timeout >= timeOut))
                             
             if isDone:
                 isToDoArr[rec_n-min_n] = False
@@ -91,14 +91,14 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
     nonRisolvibili = []
     record = []
 
-    algoritmName = algoritmo.__name__
+    algorithmName = algoritmo.__name__
     euristicName = criterioScelta.__name__
     
     if inizio<1:
         inizio = 1
         
     if file_exists(outDataFileName):
-        nToDoList=find_not_done_n_list(outDataFileName, inizio, fine, step, algoritmo, criterioScelta, timeOut)
+        nToDoList=find_not_done_n_list(outDataFileName, inizio, fine, step, algorithmName, euristicName, timeOut)
     else:
         Path(os.path.dirname(outDataFileName)).mkdir(parents=True, exist_ok=True) # make dir if not exists
         with open(outDataFileName, 'w', newline='') as file:
@@ -128,7 +128,7 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
                 print(f'n={n} INVALID SOLUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
                 ris='ERROR'
                 
-        record.append([numero,algoritmName,euristicName,timeOut,format(tempo,'.4f'),ris])
+        record.append([numero,algorithmName,euristicName,timeOut,format(tempo,'.4f'),ris])
 
         if not n % writeThreshold:
             with open(outDataFileName, 'a', newline='') as file:
@@ -147,7 +147,7 @@ if __name__ == '__main__':
     start=time()
     
     inizio = 500
-    fine = 600
+    fine = 501
     step = 1
     timeOut = 10.0
     outDataFileName = './data/data4.csv'
