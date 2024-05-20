@@ -11,8 +11,10 @@ def getUnvisitedNeighbours(n:int, fromPos:int, isInPath:list[int])->list[int]:
     mosse_cavallo:list[tuple[int,int]] = getMosseCavallo()
     fromX, fromY = idxToCord(n,fromPos)
     for dX,dY in mosse_cavallo:
-        toPos=cordToIdx(n, fromX+dX, fromY+dY)
-        if 0<=toPos<n and not isInPath[toPos]:
+        toX = fromX+dX
+        toY = fromY+dY
+        toPos=cordToIdx(n, toX, toY)
+        if 0<=toX<n and 0<=toY<n and not isInPath[toPos]:
             outList.append(toPos)
     return outList
         
@@ -78,11 +80,11 @@ def percorsoCavalloIterativoNoGraph(n:int, timeOut:float, criterioScelta:Callabl
 
 
 if __name__ == '__main__':
-    n=7
+    n=1000
     criterioScelta=eurMenoEntrantiDistCentroEuclidea
     timeOut=3600*24*7
-    nomeFile='./txt/provaiterativa2.txt'
-    #nomeFile=None
+    #nomeFile='./txt/provaiterativa2.txt'
+    nomeFile=None
 
     numero,tempo,esito =percorsoCavalloIterativoNoGraph(n, timeOut, criterioScelta, nomeFile)
     print(numero,tempo,esito)

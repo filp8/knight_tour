@@ -148,17 +148,21 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 if __name__ == '__main__':
     start=time()
     
-    inizio = 3000
-    fine = 3000
-    step = 1
-    timeOut = 1000.0
-    outDataFileName = './data/data4.csv'
+    inizio = 1000
+    fine = 10000
+    step = 1000
+    timeOut = 7200.0
+    outDataFileName = './data/data5.csv'
     
     # # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo,percorsoCavalloStack]
     # # euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
-    algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack]
-    # algoritmi = [percorsoCavalloIterativoNoGraph]
-    euristiche = [eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan]
+
+    #algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack]
+    #euristiche = [eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan]
+
+    algoritmi = [percorsoCavalloIterativoNoGraph]
+    # algoritmi = [percorsoCavalloIterativo]
+    euristiche = [eurMenoEntrantiDistCentroEuclidea]
 
     cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
     
