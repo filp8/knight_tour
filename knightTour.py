@@ -63,7 +63,7 @@ def percorsoCavalloIterativo(n:int, start:float, timeOut:float, criterioScelta:C
         else:
             # initialize neighbours and sort by criterioScelta 
             neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
-            neighbor_list.sort(key = lambda neig: criterioScelta(n,neig,move_cnt))
+            neighbor_list.sort(key = lambda neig: criterioScelta(n, neig, move_cnt[neig]))
         
         if neighbor_list==[]:
             isBackTrack = True # all neigbour where excluded

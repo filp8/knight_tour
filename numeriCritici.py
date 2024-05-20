@@ -9,6 +9,7 @@ from boardUtil import isValidSolution
 from knightTour import percorsoCavalloIterativo
 from knightTourNoBacktrack import percorsoCavalloNoBack
 from knightTourNoBacktrackNoCount import percorsoCavalloNoBackNoCount
+from knightTourNoGraph import percorsoCavalloIterativoNoGraph
 from knightTourRicorsivo import percorsoCavalloRicorsivo
 
 from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
@@ -146,15 +147,16 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 if __name__ == '__main__':
     start=time()
     
-    inizio = 500
-    fine = 501
+    inizio = 1600
+    fine = 1600
     step = 1
-    timeOut = 10.0
+    timeOut = 100.0
     outDataFileName = './data/data4.csv'
     
     # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
     # euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
     algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack]
+    # algoritmi = [percorsoCavalloIterativoNoGraph]
     euristiche = [eurMenoEntrantiDistCentroEuclidea,eurMenoEntrantiDistCentroManhattan]
 
     cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)

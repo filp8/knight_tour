@@ -5,27 +5,27 @@ from boardToString import print_board
 
 
 
-def eurDistCentroEuclidea(n:int ,pos:int ,move_cnt:list[int])->float:
+def eurDistCentroEuclidea(n:int, pos:int, neighCount:int)->float:
     return -dist_centro_euclidea(n,pos)
 
-def eurDistCentroManhattan(n:int ,pos:int ,move_cnt:list[int])->float:
+def eurDistCentroManhattan(n:int, pos:int, neighCount:int)->float:
     return -dist_centro_manhattan(n,pos)
 
-def eurDistCentroOnion(n:int ,pos:int ,move_cnt:list[int])->float:
+def eurDistCentroOnion(n:int, pos:int, neighCount:int)->float:
     return -dist_centro_onion(n,pos)
 
 
-def eurMenoEntranti(n:int ,pos:int ,move_cnt:list[int])->float:
-    return move_cnt[pos]*n
+def eurMenoEntranti(n:int, pos:int, neighCount:int)->float:
+    return neighCount
 
-def eurMenoEntrantiDistCentroEuclidea(n:int ,pos:int ,move_cnt:list[int])->float:
-    return (move_cnt[pos]*n)-dist_centro_euclidea(n,pos)
+def eurMenoEntrantiDistCentroEuclidea(n:int, pos:int, neighCount:int)->float:
+    return (neighCount*n)-dist_centro_euclidea(n,pos)
 
-def eurMenoEntrantiDistCentroManhattan(n:int ,pos:int ,move_cnt:list[int])->float:
-    return (move_cnt[pos]*n)-dist_centro_manhattan(n,pos)
+def eurMenoEntrantiDistCentroManhattan(n:int, pos:int, neighCount:int)->float:
+    return (neighCount*n)-dist_centro_manhattan(n,pos)
 
-def eurMenoEntrantiDistCentroOnion(n:int ,pos:int ,move_cnt:list[int])->float:
-    return (move_cnt[pos]*n)-dist_centro_onion(n,pos)
+def eurMenoEntrantiDistCentroOnion(n:int, pos:int, neighCount:int)->float:
+    return (neighCount*n)-dist_centro_onion(n,pos)
 
 
 

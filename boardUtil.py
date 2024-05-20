@@ -25,9 +25,12 @@ def make_cnt(n):
             update_cnt(n,x,y,cnt,None,False)
     return cnt
 
+def getMosseCavallo()->list[tuple[int,int]]:
+    return [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)] # (x,y)
+
 def update_cnt(n,x,y,cnt,nelPath,dec):
     rev = False
-    mosse_cavallo = [(1,2),(1,-2),(-1,2),(-1,-2),(2,1),(2,-1),(-2,1),(-2,-1)] # (x,y)
+    mosse_cavallo:list[tuple[int,int]] = getMosseCavallo()
     for mossa in mosse_cavallo:
                 tx = x+mossa[0]
                 ty = y+mossa[1]

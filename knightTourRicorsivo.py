@@ -22,7 +22,7 @@ def hamiltonian_path(n,graph, pos, path, nelPath, move_cnt,criterioScelta,start)
 
     if not update_cnt(n,x,y,move_cnt,nelPath,dec=True) or deltalen == 1:
         neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
-        neighbor_list.sort(key = lambda neig:criterioScelta(n,neig,move_cnt))
+        neighbor_list.sort(key = lambda neig:criterioScelta(n,neig,move_cnt[neig]))
         for neighbor in neighbor_list:
             extended_path = hamiltonian_path(n,graph, neighbor, path,nelPath,move_cnt,criterioScelta,start)
             if extended_path: 

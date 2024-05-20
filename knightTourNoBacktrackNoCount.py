@@ -39,7 +39,7 @@ def percorsoCavalloNoBackNoCount(n:int, start:float, timeOut:float, criterioScel
         
         # initialize neighbours and sort by criterioScelta 
         neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
-        neighbor_list.sort(key = lambda neig: criterioScelta(n,neig,None))
+        neighbor_list.sort(key = lambda neig: criterioScelta(n,neig,1))
         
         if neighbor_list==[]:
             return (n,time()-start,[]) # No solution without backtraching
