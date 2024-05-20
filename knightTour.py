@@ -59,8 +59,7 @@ def percorsoCavalloIterativo(n:int, start:float, timeOut:float, criterioScelta:C
             path.pop()
             pos = path[-1]
             # pop neighbor_list
-            stackNL.pop()
-            neighbor_list = stackNL[-1]
+            neighbor_list = stackNL.pop()
         else:
             # initialize neighbours and sort by criterioScelta 
             neighbor_list = [n for n in graph[pos] if nelPath[n]==0]
