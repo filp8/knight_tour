@@ -7,6 +7,7 @@ import csv
 from boardUtil import isValidSolution
 
 from knightTour import percorsoCavalloIterativo
+from knightTourSave import percorsoCavalloIterativoSave
 from knightTourNoBacktrack import percorsoCavalloNoBack
 from knightTourNoBacktrackNoCount import percorsoCavalloNoBackNoCount
 from knightTourRicorsivo import percorsoCavalloRicorsivo
@@ -113,10 +114,7 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
     print(f'nToDoList={nToDoList}')
     for n in nToDoList:
         numero,tempo,esito = algoritmo(n,time(),timeOut,criterioScelta)
-        ris = str(len(esito)>0 if esito!=None else None)
-        temp = format(tempo,'.4f')
-
-        record.append([numero,algoritmName,euristicName,timeOut,temp,ris])
+        ris = str(len(esito)>0 if esito!=None else 'UNSOLVABLE')
 
         if esito==None:
             nonRisolvibili.append(numero)
@@ -129,6 +127,9 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
             print(f'n={n} found in {tempo:.3f}sec')
             if not isValidSolution(n, esito):
                 print(f'n={n} INVALID SOLUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+                ris='ERROR'
+                
+        record.append([numero,algoritmName,euristicName,timeOut,format(tempo,'.4f'),ris])
 
         if not n % writeThreshold:
             with open(outDataFileName, 'a', newline='') as file:
@@ -145,13 +146,16 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 
 if __name__ == '__main__':
 
-    inizio = 0
+    inizio = 5
     fine = 100
     step = 1
     timeOut = 1.0
     outDataFileName = './data/data4.csv'
-    algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
-    euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
+    
+    # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
+    # euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
+    algoritmi = [percorsoCavalloIterativoSave, percorsoCavalloNoBack, percorsoCavalloRicorsivo]
+    euristiche = [eurMenoEntrantiDistCentroEuclidea,eurMenoEntrantiDistCentroManhattan]
 
     cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
 

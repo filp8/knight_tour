@@ -1,40 +1,40 @@
-
 from math import sqrt
+
 from boardUtil import cordToIdx,idxToCord
 from boardToString import print_board
 
 
 
-def eurDistCentroEuclidea(n,pos,move_cnt):
+def eurDistCentroEuclidea(n:int ,pos:int ,move_cnt:list[int])->float:
     return -dist_centro_euclidea(n,pos)
 
-def eurDistCentroManhattan(n,pos,move_cnt):
+def eurDistCentroManhattan(n:int ,pos:int ,move_cnt:list[int])->float:
     return -dist_centro_manhattan(n,pos)
 
-def eurDistCentroOnion(n,pos,move_cnt):
+def eurDistCentroOnion(n:int ,pos:int ,move_cnt:list[int])->float:
     return -dist_centro_onion(n,pos)
 
 
-def eurMenoEntranti(n,pos,move_cnt):
+def eurMenoEntranti(n:int ,pos:int ,move_cnt:list[int])->float:
     return move_cnt[pos]*n
 
-def eurMenoEntrantiDistCentroEuclidea(n,pos,move_cnt):
+def eurMenoEntrantiDistCentroEuclidea(n:int ,pos:int ,move_cnt:list[int])->float:
     return (move_cnt[pos]*n)-dist_centro_euclidea(n,pos)
 
-def eurMenoEntrantiDistCentroManhattan(n,pos,move_cnt):
+def eurMenoEntrantiDistCentroManhattan(n:int ,pos:int ,move_cnt:list[int])->float:
     return (move_cnt[pos]*n)-dist_centro_manhattan(n,pos)
 
-def eurMenoEntrantiDistCentroOnion(n,pos,move_cnt):
+def eurMenoEntrantiDistCentroOnion(n:int ,pos:int ,move_cnt:list[int])->float:
     return (move_cnt[pos]*n)-dist_centro_onion(n,pos)
 
 
 
-def dist_centro_euclidea(n,pos):
+def dist_centro_euclidea(n:int ,pos:int )->float:
     x,y = idxToCord(n,pos)
     centro = n/2
     return sqrt((x-centro)**2+(y-centro)**2)
 
-def dist_centro_manhattan(n,pos):
+def dist_centro_manhattan(n:int ,pos:int )->float:
     x,y = idxToCord(n,pos)
     centro = ((n+1)//2)-1
     xdist = abs(centro-x)
@@ -46,7 +46,7 @@ def dist_centro_manhattan(n,pos):
             ydist+=1
     return  xdist+ydist
 
-def dist_centro_onion(n,pos):
+def dist_centro_onion(n:int ,pos:int )->float:
     x,y = idxToCord(n,pos)
     centro = ((n+1)//2)-1
     xdist = abs(centro-x)
@@ -56,11 +56,9 @@ def dist_centro_onion(n,pos):
             xdist+=1
         if y<=centro:
             ydist+=1
-
     return  max(xdist,ydist)
 
-    printCriterio(6,dist_centro_manhattan)
-def printCriterio(n,criterio):
+def printCriterio(n:int, criterio):
     boardOut=[]
     for y in range(n):
         for x in range(n):
