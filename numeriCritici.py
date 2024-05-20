@@ -51,7 +51,7 @@ def find_not_done_n_list(filename:str, min_n:int, max_n:int, step:int, algorithm
     timeOut_index:int=3
     result_index:int=5
     
-    isToDoArr=[True]*(max_n-min_n+1)
+    isToDoArr=[((n-min_n)%step==0) for n in  range(min_n, max_n+1)]
     
     with open(filename, 'r') as file:
         reader = csv.reader(file)
@@ -148,11 +148,11 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 if __name__ == '__main__':
     start=time()
     
-    inizio = 1000
-    fine = 10000
-    step = 1000
-    timeOut = 7200.0
-    outDataFileName = './data/data5.csv'
+    inizio = 10_000
+    fine = 100_000
+    step = 1_000
+    timeOut = 7_200.0
+    outDataFileName = './data/data6.csv'
     
     # # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo,percorsoCavalloStack]
     # # euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
