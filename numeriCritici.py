@@ -78,16 +78,16 @@ def cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristich
             if not (algoritmo.__name__=='percorsoCavalloNoBackNoCount' and euristica.__name__[:15] == 'eurMenoEntranti'):
                 algoEurNames=f'algoritmo={algoritmo.__name__} euristica={euristica.__name__}:'
                 print("\n"+algoEurNames)
-                fail,gooal,nonRisolvibili=cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,euristica,outDataFileName)
+                fail,goal,nonRisolvibili=cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,euristica,outDataFileName)
                 print(algoEurNames)
-                print(f'   fail={str(len(fail)) if fail else "None"}; gooal={str(len(gooal)) if gooal else "None"}; gooal={str(len(nonRisolvibili)) if nonRisolvibili else "None"};')
+                print(f'   fail={str(len(fail)) if fail else "None"}; goal={str(len(goal)) if goal else "None"}; unsolvable={str(len(nonRisolvibili)) if nonRisolvibili else "None"};')
 
     return
 
 def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outDataFileName, writeThreshold=10):
     
     fail = []
-    gooal = []
+    goal = []
     nonRisolvibili = []
     record = []
 
@@ -122,7 +122,7 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
             fail.append(numero)
             print(f'n={n} FAILED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         else:
-            gooal.append(numero)
+            goal.append(numero)
             print(f'n={n} found in {tempo:.3f}sec')
             if not isValidSolution(n, esito):
                 print(f'n={n} INVALID SOLUTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
@@ -140,16 +140,16 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
             writer = csv.writer(file)
             writer.writerows(record)
 
-    return fail,gooal,nonRisolvibili
+    return fail,goal,nonRisolvibili
 
 
 if __name__ == '__main__':
     start=time()
     
-    inizio = 100
-    fine = 200
+    inizio = 500
+    fine = 600
     step = 1
-    timeOut = 1.0
+    timeOut = 10.0
     outDataFileName = './data/data4.csv'
     
     # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo]
