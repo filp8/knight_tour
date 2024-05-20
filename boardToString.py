@@ -14,6 +14,34 @@ def print_board(vett,n):
     print(sOut)
     return 
 
+def print_board_pixel(n,path,vett):
+    sOut = ''
+    cnt = 0
+    pos = path[-1]
+    last = None
+    lastlast = None
+    if len(path)>1:
+        last = path[-2]
+    if len(path)>2:
+        lastlast = path[-3]
+    for i,cas in enumerate(vett):
+        if i == pos:
+            sOut+='🟥'
+        elif i == last:
+            sOut+='🟧'
+        # elif i ==lastlast:
+        #     sOut+='🟨'
+        elif cas ==1:
+            sOut+='⬛️'
+        else:
+            sOut+='⬜'
+        cnt+=1
+        if cnt == n:
+            sOut+='\n'
+            cnt = 0
+    print(sOut)
+    return 
+
 def save_board(vett,n,pos,nomeFile,id,asTab=False,simboli=('0','1','\u265E')):
     sOut = f'\n{id}\n\n'
     cnt = 0

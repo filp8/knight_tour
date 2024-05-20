@@ -1,7 +1,7 @@
 from time import time
 from typing import Callable
 from boardUtil import idxToCord,creaGrafo,make_cnt,update_cnt,isValidSolution,cordToIdx
-from boardToString import save_board,print_board
+from boardToString import save_board,print_board_pixel
 
 from criteriSceltaHamilton import eurDistCentroEuclidea, eurDistCentroManhattan, eurDistCentroOnion, eurMenoEntranti,  \
                                   eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan, eurMenoEntrantiDistCentroOnion
@@ -36,7 +36,7 @@ def percorsoCavalloStack(n:int, start:float, timeOut:float, criterioScelta:Calla
     nelPath[pos]=1
     isBackTrack = False
     while True:
-        #print_board(nelPath,n)
+        print_board_pixel(n,unpackStack(stack),nelPath)
         toDoCount=len(graph)-len(stack)
         if toDoCount==0:
             return (n,time()-start,unpackStack(stack))

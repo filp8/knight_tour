@@ -146,38 +146,38 @@ def cercaNumeriCritici(inizio,fine,step,timeOut,algoritmo,criterioScelta,outData
 
 
 if __name__ == '__main__':
-    start=time()
+    # start=time()
     
-    inizio = 1700
-    fine = 1700
-    step = 1
-    timeOut = 600.0
-    outDataFileName = './data/data4.csv'
+    # inizio = 1700
+    # fine = 1700
+    # step = 1
+    # timeOut = 600.0
+    # outDataFileName = './data/data4.csv'
     
-    # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo,percorsoCavalloStack]
-    # euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
-    algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack]
-    # algoritmi = [percorsoCavalloIterativoNoGraph]
-    euristiche = [eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan]
+    # # algoritmi = [percorsoCavalloIterativo,percorsoCavalloNoBack,percorsoCavalloNoBackNoCount,percorsoCavalloRicorsivo,percorsoCavalloStack]
+    # # euristiche = [eurDistCentroEuclidea,eurMenoEntrantiDistCentroEuclidea,eurMenoEntranti,eurDistCentroManhattan,eurMenoEntrantiDistCentroManhattan]
+    # algoritmi = [percorsoCavalloIterativo, percorsoCavalloNoBack]
+    # # algoritmi = [percorsoCavalloIterativoNoGraph]
+    # euristiche = [eurMenoEntrantiDistCentroEuclidea, eurMenoEntrantiDistCentroManhattan]
 
-    cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
+    # cercaNumeriCriticiVariAlgoritmi(inizio,fine,step,timeOut,algoritmi,euristiche,outDataFileName)
     
-    print(time()-start)
+    # print(time()-start)
 
     #   NUMERI CRITICI SINGOLO ALGORITMO
-    # inizio = 0
-    # fine = 10000
-    # step = 1
-    # timeOut = 1.0
-    # outDataFileName = './data/data2.csv'
-    # fail,goal,nonRisolvibili = cercaNumeriCritici(inizio, fine, step, timeOut, percorsoCavalloIterativo,eurMenoEntrantiDistCentroManhattan, outDataFileName)
+    inizio = 0
+    fine = 10000
+    step = 1
+    timeOut = 1.0
+    outDataFileName = './data/data2.csv'
+    fail,goal,nonRisolvibili = cercaNumeriCritici(inizio, fine, step, timeOut, percorsoCavalloStack,eurMenoEntrantiDistCentroEuclidea, outDataFileName)
 
-    # print(goal)
-    # print()
-    # print(fail)
-    # print(f'\n\n inizio:{inizio}     fine:{fine}     step:{step}     timeOut:{timeOut}')
-    # print(f'\n goal:{str(len(goal)) if goal else "None"}')
-    # print(f'\n fail:{str(len(fail)) if fail else "None"}')
-    # print(f'\n nonRisolvibili:{str(len(nonRisolvibili)) if nonRisolvibili else "None"}')
+    print(goal)
+    print()
+    print(fail)
+    print(f'\n\n inizio:{inizio}     fine:{fine}     step:{step}     timeOut:{timeOut}')
+    print(f'\n goal:{str(len(goal)) if goal else "None"}')
+    print(f'\n fail:{str(len(fail)) if fail else "None"}')
+    print(f'\n nonRisolvibili:{str(len(nonRisolvibili)) if nonRisolvibili else "None"}')
 
-    # print(find_max('./data/data1.csv',0))
+    print(find_max('./data/data1.csv',0))
