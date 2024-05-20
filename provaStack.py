@@ -37,7 +37,7 @@ def percorsoCavalloStack(n:int, timeOut:float, criterioScelta:Callable[[int, int
     nelPath[pos]=1
     isBackTrack = False
     while True:
-        print_board_pixel(n,unpackStack(stack),nelPath)
+        #print_board_pixel(n,unpackStack(stack),nelPath)
         toDoCount=len(graph)-len(stack)
         if toDoCount==0:
             return (n,time()-start,unpackStack(stack))
